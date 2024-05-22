@@ -8,6 +8,7 @@ from facades.file_facade import FILE_MANAGER
 from facades.song_facade import song_facade
 from facades.genre_facade import genre_facade
 from facades.favorite_song_facade import favorite_song_facade
+from facades.playlist_facade import playlist_facade
 
 router = APIRouter(
     prefix='/api',
@@ -25,6 +26,18 @@ async def add_favourite_song(
         song_id=song_data.song_id, user_id=current_user.id
     )
     return favorite_song
+
+
+@router.post('/playlists/', response_model=schemas.Playlist)
+async def add_playlist(
+        playlist_data: schemas.PlaylistCreate,
+        current_user: models.User = Depends(get_current_user),
+        db: AsyncSession = Depends(get_db)
+):
+    playlist = await playlist_facade.add_playlist_to_user(
+        playlist_name=playlist_data.name, user_id=current_user.id,
+    )
+    return playlist
 
 
 @router.get('/favorites/', response_model=list[schemas.Song])

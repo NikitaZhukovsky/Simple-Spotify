@@ -105,4 +105,23 @@ class FavoriteSong(FavoriteSongBase):
         from_attributes = True
 
 
+class PlaylistBase(BaseModel):
+    class Config:
+        from_attributes = True
+
+
+class Playlist(PlaylistBase):
+    name: str
+    
+    class Config:
+        from_attributes = True
+
+
+class PlaylistCreate(PlaylistBase):
+    name: str
+
+
+
+
+
 
