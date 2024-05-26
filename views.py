@@ -7,7 +7,6 @@ from users import get_current_user
 from facades.song_facade import song_facade
 from facades.favorite_song_facade import favorite_song_facade
 from facades.playlist_facade import playlist_facade
-from facades.playlist_song_facade import playlist_song_facade
 from facades.file_facade import FILE_MANAGER
 
 
@@ -63,7 +62,7 @@ async def add_song_to_playlist(
         playlist_song_data: schemas.PlaylistSongCreate,
 ):
 
-    playlist_song = await playlist_song_facade.add_song_to_playlist(
+    playlist_song = await playlist_facade.add_song_to_playlist(
         playlist_id=playlist_song_data.playlist_id,
         song_id=playlist_song_data.song_id
         )
