@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 
+
 class FavoriteSongFacade(BaseFacade):
     async def add_favorite_song(self, song_id: int, user_id: int) -> schemas.FavoriteSong:
         song = await self.db.get(models.Song, song_id)

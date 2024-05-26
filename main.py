@@ -8,6 +8,7 @@ from facades.album_facade import album_facade
 from facades.song_facade import song_facade
 from facades.favorite_song_facade import favorite_song_facade
 from facades.playlist_facade import playlist_facade
+from facades.playlist_song_facade import playlist_song_facade
 import admin
 import views
 
@@ -19,6 +20,7 @@ def set_db_for_facades(db):
     song_facade.set_db(db)
     favorite_song_facade.set_db(db)
     playlist_facade.set_db(db)
+    playlist_song_facade.set_db(db)
 
 
 OAUTH2_SCHEME = OAuth2PasswordBearer('users/login/')

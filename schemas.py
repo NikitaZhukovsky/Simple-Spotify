@@ -121,6 +121,21 @@ class PlaylistCreate(PlaylistBase):
     name: str
 
 
+class PlaylistSongBase(BaseModel):
+    song_id: int
+    playlist_id: int
+
+
+class PlaylistSongCreate(PlaylistSongBase):
+    pass
+
+
+class PlaylistSong(PlaylistSongBase):
+
+    class Config:
+        from_attributes = True
+
+
 
 
 
