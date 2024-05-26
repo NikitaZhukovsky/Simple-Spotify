@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 
-SQLALCHEMY_DATABASE_URL = 'postgresql+asyncpg://postgres:14092004NikZuk@localhost/music_player'
+SQLALCHEMY_DATABASE_URL = 'postgresql+asyncpg://postgres:YOUR_PASSWORD@localhost/music_player'
 
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL)
 AsyncSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
