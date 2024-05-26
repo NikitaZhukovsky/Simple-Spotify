@@ -1,15 +1,15 @@
 import models
 import schemas
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import HTTPException, status, Depends, APIRouter
+from fastapi import HTTPException, status, Depends, APIRouter, Response
 from async_db import get_db
 from users import get_current_user
-from facades.file_facade import FILE_MANAGER
 from facades.song_facade import song_facade
-from facades.genre_facade import genre_facade
 from facades.favorite_song_facade import favorite_song_facade
 from facades.playlist_facade import playlist_facade
 from facades.playlist_song_facade import playlist_song_facade
+from facades.file_facade import FILE_MANAGER
+
 
 router = APIRouter(
     prefix='/api',
@@ -58,11 +58,9 @@ async def add_playlist(
     return playlist
 
 
-@router.post('/add-to-playlist/', response_model=schemas.PlaylistSong)
-async def add_to_playlist(
+@router.post('/add-song-to-playlist/', response_model=schemas.PlaylistSong)
+async def add_song_to_playlist(
         playlist_song_data: schemas.PlaylistSongCreate,
-        current_user: models.User = Depends(get_current_user),
-        db: AsyncSession = Depends(get_db)
 ):
 
     playlist_song = await playlist_song_facade.add_song_to_playlist(
@@ -85,3 +83,18 @@ async def get_playlist_songs(
     )
 
     return playlist_songs
+
+
+@router.get('/songs/{song_id}/download')
+async def download_song(song_id: int):
+    song = await song_facade.get_song(song_id)
+    file_data = await FILE_MANAGER.get_file(song.file_path)
+
+    if not file_data:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='File not found')
+
+    return Response(content=file_data,
+                    media_type='application/octet-stream',
+                    headers={'Content-Disposition': 'attachment; filename="song.mp3"'})
+
+

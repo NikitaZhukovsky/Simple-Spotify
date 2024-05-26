@@ -1,9 +1,8 @@
 import models
 import schemas
 from facades.base_facade import BaseFacade
-from fastapi import HTTPException, status
+
 from sqlalchemy.future import select
-from sqlalchemy.orm import selectinload
 
 
 class PlaylistFacade(BaseFacade):

@@ -6,6 +6,7 @@ from sqlalchemy.future import select
 from sqlalchemy import func
 
 
+
 class SongFacade(BaseFacade):
 
     async def create_song(self, song_data: schemas.SongCreate, file_path: str) -> models.Song:
@@ -55,6 +56,19 @@ class SongFacade(BaseFacade):
             album_id=song.album_id,
             favorite_count=favorite_count
         ) for song, favorite_count in songs]
+
+    async def get_song(self, song_id: int) -> schemas.Song:
+        song = await self.db.get(models.Song, song_id)
+        if not song:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Song Not Found')
+
+        return schemas.Song(
+            id=song.id,
+            title=song.title,
+            text=song.text,
+            album_id=song.album_id,
+            file_path=song.file_path
+        )
 
 
 song_facade = SongFacade()
