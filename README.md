@@ -23,7 +23,7 @@ Simplified Spotify using FastAPI
 # Installation
 Clone the repo with
 
-• git clone https://github.com/NikitaZhukovsky/financial-management.git
+• git clone https://github.com/NikitaZhukovsky/Simple-Spotify.git
 
 • In the sync_db, async_db and alembic.ini files, specify your password for the database
 
