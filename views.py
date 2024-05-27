@@ -8,6 +8,7 @@ from facades.song_facade import song_facade
 from facades.favorite_song_facade import favorite_song_facade
 from facades.playlist_facade import playlist_facade
 from facades.file_facade import FILE_MANAGER
+import os
 
 
 router = APIRouter(
@@ -85,7 +86,9 @@ async def get_playlist_songs(
 
 
 @router.get('/songs/{song_id}/download')
-async def download_song(song_id: int):
+async def download_song(song_id: int,
+                        current_user: models.User = Depends(get_current_user)
+                        ):
     song = await song_facade.get_song(song_id)
     file_data = await FILE_MANAGER.get_file(song.file_path)
 
@@ -93,7 +96,5 @@ async def download_song(song_id: int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='File not found')
 
     return Response(content=file_data,
-                    media_type='application/octet-stream',
-                    headers={'Content-Disposition': 'attachment; filename="song.mp3"'})
-
-
+                    media_type='audio/mpeg',
+                    headers={'Content-Disposition': f"attachment; filename={os.path.basename(song.file_path.encode('utf-8').decode('latin-1'))}"})
