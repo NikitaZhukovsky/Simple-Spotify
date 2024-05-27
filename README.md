@@ -30,11 +30,11 @@ Clone the repo with
 
 Create .env file inside the root directory and include the following variables
 
-AWS_ACCESS_KEY_ID=YOUR_KEY_ID  
-AWS_SECRET_ACCESS_KEY=YOUR_ACCESS_KEY  
-BUCKET_NAME=YOUR_BUCKET  
-ENDPOINT_URL=ENDPOINT_URL  
-REGION_NAME=ru-central1
+• AWS_ACCESS_KEY_ID=YOUR_KEY_ID  
+• AWS_SECRET_ACCESS_KEY=YOUR_ACCESS_KEY  
+• BUCKET_NAME=YOUR_BUCKET  
+• ENDPOINT_URL=ENDPOINT_URL  
+• REGION_NAME=ru-central1
 
 # Alembic
 • alembic revision -m "Initial"
